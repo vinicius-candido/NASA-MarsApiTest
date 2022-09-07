@@ -17,7 +17,7 @@
 							"pm.test('1. Retrieve first 10 by Martian sol', () => {\r",
 							"    var responseBody = pm.response.json();\r",
 							"    for (let i=0; i < 10; i++) {\r",
-							"        console.log(responseBody.photos[i]);\r",
+							"        //console.log(responseBody.photos[i]);\r",
 							"        pm.globals.set(i +'. Martian data', responseBody.photos[i]);\r",
 							"    }\r",
 							"});"
@@ -101,7 +101,7 @@
 							"pm.test('2. Retrieve first 10 by Earth date', () => {\r",
 							"    var responseBody = pm.response.json();\r",
 							"    for (let i=0; i < 10; i++) {\r",
-							"        console.log(responseBody.photos[i]);\r",
+							"        //console.log(responseBody.photos[i]);\r",
 							"        pm.globals.set(i +'. Earth data', responseBody.photos[i]);\r",
 							"    }\r",
 							"});\r",
@@ -198,9 +198,9 @@
 							"    let othersCount = 0;\r",
 							"    for (let i=0; i < responseBody.photos.length; i++) {\r",
 							"        othersCount += 1;\r",
-							"        console.log(\"found an Opportunity shot\");\r",
+							"        //console.log(\"found an Opportunity shot\");\r",
 							"    }\r",
-							"    console.log(\"Total others after opportunity: \" + othersCount);\r",
+							"    //console.log(\"Total others after opportunity: \" + othersCount);\r",
 							"    pm.globals.set(\"OpportunityCameraPhotoCount\", Number(othersCount));\r",
 							"});"
 						],
@@ -211,7 +211,7 @@
 					"listen": "prerequest",
 					"script": {
 						"exec": [
-							"pm.globals.set(\"OtherCameraPhotoCount\", Number(0));"
+							""
 						],
 						"type": "text/javascript"
 					}
