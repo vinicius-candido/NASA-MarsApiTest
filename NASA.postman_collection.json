@@ -1,0 +1,387 @@
+{
+	"info": {
+		"_postman_id": "65d84254-bf53-47b5-a042-a12d2c9036c8",
+		"name": "NASA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2783989"
+	},
+	"item": [
+		{
+			"name": "1. 1000 martian sol photos by Curiosity",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//1. Retrieve the first 10 Mars photos made by \"Curiosity\" on 1000 Martian sol.\r",
+							"pm.test('1. Retrieve first 10 by Martian sol', () => {\r",
+							"    var responseBody = pm.response.json();\r",
+							"    for (let i=0; i < 10; i++) {\r",
+							"        console.log(responseBody.photos[i]);\r",
+							"        pm.globals.set(i +'. Martian data', responseBody.photos[i]);\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{NASA-Token}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "api_key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&page=1&api_key={{NASA-Token}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"nasa",
+						"gov"
+					],
+					"path": [
+						"mars-photos",
+						"api",
+						"v1",
+						"rovers",
+						"curiosity",
+						"photos"
+					],
+					"query": [
+						{
+							"key": "sol",
+							"value": "1000"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "api_key",
+							"value": "{{NASA-Token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2. and 3. Earth date sol photos by Curiosity",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//2. Retrieve the first 10 Mars photos made by \"Curiosity\" on Earth date equal to 1000 Martian sol.\r",
+							"pm.test('2. Retrieve first 10 by Earth date', () => {\r",
+							"    var responseBody = pm.response.json();\r",
+							"    for (let i=0; i < 10; i++) {\r",
+							"        console.log(responseBody.photos[i]);\r",
+							"        pm.globals.set(i +'. Earth data', responseBody.photos[i]);\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"//3. Retrieve and compare the first 10 Mars photos made by \"Curiosity\" on 1000 sol and on Earth date equal to 1000 Martian sol.\r",
+							"pm.test('3. Compare if by martian is equal to by earth date filter', () => {\r",
+							"    let earthCurrData;\r",
+							"    let martianCurrData;\r",
+							"    for (let i=0; i < 10; i++) {\r",
+							"        earthCurrData = pm.globals.get(i +'. Earth data');\r",
+							"        martianCurrData = pm.globals.get(i +'. Martian data');\r",
+							"        if (earthCurrData === martianCurrData) return true\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{NASA-Token}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "api_key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2015-05-30&page=1&api_key={{NASA-Token}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"nasa",
+						"gov"
+					],
+					"path": [
+						"mars-photos",
+						"api",
+						"v1",
+						"rovers",
+						"curiosity",
+						"photos"
+					],
+					"query": [
+						{
+							"key": "earth_date",
+							"value": "2015-05-30"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "api_key",
+							"value": "{{NASA-Token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Opportunity camera photos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Retrieving all shots from Opportunity camera taken in 1000 Martian sol and store into global variable OpportunityCameraPhotoCount\r",
+							"pm.test('Get Opportunity camera photos count', () => {\r",
+							"    var responseBody = pm.response.json();\r",
+							"    let othersCount = 0;\r",
+							"    for (let i=0; i < responseBody.photos.length; i++) {\r",
+							"        othersCount += 1;\r",
+							"        console.log(\"found an Opportunity shot\");\r",
+							"    }\r",
+							"    console.log(\"Total others after opportunity: \" + othersCount);\r",
+							"    pm.globals.set(\"OpportunityCameraPhotoCount\", Number(othersCount));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.globals.set(\"OtherCameraPhotoCount\", Number(0));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.nasa.gov/mars-photos/api/v1/rovers/opportunity/photos?sol=1000&api_key={{NASA-Token}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"nasa",
+						"gov"
+					],
+					"path": [
+						"mars-photos",
+						"api",
+						"v1",
+						"rovers",
+						"opportunity",
+						"photos"
+					],
+					"query": [
+						{
+							"key": "sol",
+							"value": "1000"
+						},
+						{
+							"key": "api_key",
+							"value": "{{NASA-Token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Spirit camera photos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Retrieving all shots from Spirit camera taken in 1000 Martian sol and store into global variable SpiritCameraPhotoCount\r",
+							"pm.test('Get Spirit camera photos count', () => {\r",
+							"    var responseBody = pm.response.json();\r",
+							"    let othersCount = 0;\r",
+							"    for (let i=0; i < responseBody.photos.length; i++) {\r",
+							"        othersCount += 1;\r",
+							"        //console.log(\"found an Spirit shot\");\r",
+							"    }\r",
+							"    //console.log(\"Total others after Spirit: \" + othersCount);\r",
+							"    pm.globals.set(\"SpiritCameraPhotoCount\", Number(othersCount));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.nasa.gov/mars-photos/api/v1/rovers/spirit/photos?sol=1000&api_key={{NASA-Token}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"nasa",
+						"gov"
+					],
+					"path": [
+						"mars-photos",
+						"api",
+						"v1",
+						"rovers",
+						"spirit",
+						"photos"
+					],
+					"query": [
+						{
+							"key": "sol",
+							"value": "1000"
+						},
+						{
+							"key": "api_key",
+							"value": "{{NASA-Token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4. Curiosity pictures at 1000 marian sol less than 10x all others",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//4. Validate that the amounts of pictures that each \"Curiosity\" camera took on 1000 Mars sol is not greater than 10 times the amount taken by other cameras on the same date.\r",
+							"pm.test('4. Validates that Curiosity pictures at 1000 marian sol is less than 10x all others', () => {\r",
+							"    var responseBody = pm.response.json();\r",
+							"    let curiosityCount = 0;\r",
+							"    for (let i=0; i < responseBody.photos.length; i++) {\r",
+							"        curiosityCount++;\r",
+							"    }\r",
+							"    let othersCount = 0;\r",
+							"    othersCount = Number(pm.globals.get('OpportunityCameraPhotoCount')) \r",
+							"    + Number(pm.globals.get('SpiritCameraPhotoCount'));\r",
+							"    //console.log('curiosityCount: '+ curiosityCount);\r",
+							"    //console.log('othersCount: '+ othersCount);\r",
+							"    pm.expect(curiosityCount).to.lessThan(othersCount*10);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key={{NASA-Token}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"nasa",
+						"gov"
+					],
+					"path": [
+						"mars-photos",
+						"api",
+						"v1",
+						"rovers",
+						"curiosity",
+						"photos"
+					],
+					"query": [
+						{
+							"key": "sol",
+							"value": "1000"
+						},
+						{
+							"key": "api_key",
+							"value": "{{NASA-Token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
